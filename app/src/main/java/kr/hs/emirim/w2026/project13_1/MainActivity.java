@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar proBar;
     ArrayList<String> arrList;
     String selectedMusic;
-    Button btnStart, btnStop;
+    Button btnStart, btnStop, btnPause;
     String musicPath = Environment.getExternalStorageDirectory().getPath()+"/";
     MediaPlayer media;
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             btnStart = findViewById(R.id.btn_start);
             btnStop = findViewById(R.id.btn_stop);
-
+            btnPause = findViewById(R.id.btn_pause);
             textMusic = findViewById(R.id.text_music);
             proBar = findViewById(R.id.progress);
             btnStart.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +78,20 @@ public class MainActivity extends AppCompatActivity {
                         proBar.setVisibility(View.INVISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }
+                }
+            });
+            btnPause.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(btnPause.getText().equals("일시중지")){
+                        media.pause();
+                        btnPause.setText("이어듣기");
+                        proBar.setVisibility(View.INVISIBLE);
+                    }else if(btnPause.getText().equals("이어듣기")){
+                        media.start();
+                        btnPause.setText("일시중지");
+                        proBar.setVisibility(View.VISIBLE);
                     }
                 }
             });
